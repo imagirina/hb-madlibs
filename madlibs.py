@@ -25,12 +25,14 @@ AWESOMENESS = [
     "lovely",
 ]
 
+TEMPLATES = ["madlib.html", "madlib_2.html", "madlib_3.html"]
+
 
 @app.route("/")
 def start_here():
     """Display homepage."""
 
-    return "Hi! This is the home page."
+    return render_template("index.html")
 
 
 @app.route("/hello")
@@ -69,8 +71,11 @@ def show_madlib():
     color = request.args.get("color")
     noun = request.args.get("noun")
     adjective = request.args.get("adjective")
+    flowers = request.args.getlist("flowers")  
 
-    return render_template("madlib.html", alias=alias, color=color, noun=noun, adjective=adjective)
+    template = choice(TEMPLATES)  
+
+    return render_template(template, alias=alias, color=color, noun=noun, adjective=adjective, flowers=flowers)
 
 
 if __name__ == "__main__":
